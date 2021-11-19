@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Técnica: uso de na sola imagen con varios elementos usando background position</title>
+    <style>
+        /*Marcadores sociales*/
+        #marcadores{
+            margin: 20px auto 0; /*centrar*/
+            padding: 5px 0 0 0; /*dentro*/
+            width: 240px;
+            height: 120px;
+        }
+
+        ul#marcadores li{
+            list-style-type: none;
+            padding:0;
+            margin:0;
+            float: left;
+        }
+
+        ul#marcadores li a{
+            background: url(redes_sociales_backg_pos.png) no-repeat 0 0;
+            margin: 0;
+            padding:0;
+            display: block;
+            width: 60px; /*El ancho del bloque con el icono*/
+            height: 60px; /*El alto del bloque con el icono*/
+        }
+
+        ul#marcadores li a.rss{
+            background-position: 0 0; /*Poscición del icono rss*/
+        }  
+        ul#marcadores li a.Twitter{
+            background-position: -60px 0; /*Poscición del icono Twitter*/
+        }  
+        ul#marcadores li a.Facebook{
+            background-position: -120px 0; /*Poscición del icono Facebook*/
+        }  
+        ul#marcadores li a.Youtube{
+            background-position: -180px 0; /*Poscición del icono Youtube*/
+        }     
+        ul#marcadores li a.rss:hover{
+            background-position: 0 -60px; /*Poscición del icono rss*/
+        }  
+
+        ul#marcadores li a.Twitter:hover{
+            background-position: -60px -60px; /*Poscición del icono Twitter*/
+        }  
+        ul#marcadores li a.Facebook:hover{
+            background-position: -120px -60px; /*Poscición del icono Facebook*/
+        }  
+        ul#marcadores li a.Youtube:hover{
+            background-position: -180px -60px; /*Poscición del icono Youtube*/
+        }      
+    </style>
+</head>
+<body>
+    <ul id ="marcadores">
+        <li><a class="rss" href="#" title="Suscribirse"></a></li>
+        <li><a class="Twitter" href="#" title="Seguir en Twitter"></a></li>
+        <li><a class="Facebook" href="#" title="Seguir en Facebook"></a></li>
+        <li><a class="Youtube" href="#" title="Seguir en Youtube"></a></li>
+    </ul>
+</body>
+</html>

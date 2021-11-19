@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tablas</title>
+        <meta name="">
+        <meta name="">
+        <style>
+            body{
+                background-color: lightblue;
+            }
+            h2{
+                color: pink;
+                text-transform: uppercase;
+            }
+            #registro, #registro tr, #registro td{
+                border: 1px dotted red;
+            }
+
+            #registro th{
+                text-align: center;
+                vertical-align: middle;
+                color: purple;
+            }
+            .medieval{
+                font-size: 2em;
+                text-transform: uppercase;
+                border: 1px solid darkgreen;
+                background-color: darkorange;
+                color: white;
+                font-style: italic;
+                font-weight: 800;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h2> Tabla ejemplo con saltos</h2>
+        <table border="1" cellspacing="1" callpadding="1">
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>teléfono</th>
+                <th colspan="2">Foto</th>
+            </tr>
+
+            <tr>
+                <th>11</th>
+                <th>12</th>
+                <th colspan="2" rowspan="3">13-14, 23-24, 33-34</th>
+            </tr>
+            <tr>
+                <th>21</th>
+                <th>22</th>
+                
+            </tr>
+            <tr>
+                <th rowspan="2" colspan="2">31-32</th>
+                
+                
+            </tr>
+        </table>
+
+        <form action="http://zara.com/registro.php" method="POST">
+            <table id="registro">
+                <tr>
+                    <th colspan="2"><h3>Formulario de <span class="medieval">r</span>egistro en <abbr title="A List Apart">ALA</abbr></h3></th>
+                </tr>
+              <tr>
+                    <td><label>Usuario:</label></td>
+                    <td><input type="text" id="name" name="name"></td>
+              </tr>
+
+              <tr>
+                    <td><label>Contraseña:</label></td>
+                    <td><input type="password" id="key" name="contrasena"></td>
+              </tr>
+              <tr>
+                <td><label>CP:</label></td>
+                <td><input type="text" id="cp" name="cp"></td>
+            </tr>
+
+              <tr>
+                    <td><label>Ciudad: </label></td>
+
+                    <td>
+                        <select>
+                            <option>Melilla</option>
+                            <option>Ceuta</option>
+                            <option>Madrid</option>
+                        </select>
+                    </td>
+                    
+              </tr> 
+
+              <tr>
+                <td><label>Género: </label></td>
+                <td><input type="radio" name="genero" checked value="m">Mujer<br>
+                <input type="radio" name="genero" value="h">Hombre</td><br>
+          </tr> 
+          <tr>
+            <td><input type="submit" id="validad" value="Validar"></td>
+            <td><input type="reset" id="borrar" name="borrar" value="Borrar formulario"></td>
+            
+      </tr> 
+
+                 
+            
+        </table>
+        </form>
+
+    </body>
+</html>
