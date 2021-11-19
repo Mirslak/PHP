@@ -1,5 +1,6 @@
 <?php
     include('dbconection.php');
+   
 ?>
 
 <!DOCTYPE html>
@@ -11,19 +12,39 @@
     <title>Ejemplo CRUD Sencillo - Tabla USUARIO</title>
 </head>
 <body>
+
+
+    <?php
+        $sql = "SELECT * FROM agenda WHERE id = :identificador";
+        $stmt = $conn->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        $stmt->execute(array('identificador' => 13));
+        $user_view = $stmt->fetchAll();
+
+        $sqlpaises="SELECT * FROM paises";
+        $stmt = $conn->prepare($sqlpaises);
+        $stmt->execute();
+        $lista_paises = $stmt->fetchAll();
+
+    ?>
+
+    <?php
+        
+    ?>
+
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-    <label for="nombre">Nombre:</label><input type="text" name="nombre" id="nombre"> <br>
-    <label for="apellido">Apellido:</label><input type="text" name="apellido"><br>
-    <label for="telefono">Telefono</label><input type="text" name="telefono"><br>
-    <label for="usuario">Usuario:</label><input type="text" name="usuario"><br>
-    <label for="contrasena">Contraseña:</label><input type="text" name="contrasena"><br>
+    <label for="nombre">Nombre:</label><input type="text" name="nombre" id="nombre" value="<?=$user_view[0]["nombre"];?>"> <br>
+    <label for="apellido">Apellido:</label><input type="text" name="apellido" value="<?= $user_view[0]["apellido"]?>"><br>
+    <label for="telefono">Telefono</label><input type="text" name="telefono" value="<?=$user_view[0]["telefono"]?>"><br>
+    <label for="usuario">Usuario:</label><input type="text" name="usuario" value=" <?=$user_view[0]["username"]?>"><br>
     <label for="nacionalidad">Nacionalidad: </label>
-
     <select name="nacionalidad">
-        <option value="España">Español</option>
-        <option value="Otro" selected="selected">Extranjero</option>
-    </select><br>
 
+    <?php
+        foreach ($lista_paises as $paises){
+            print "<option value=\"$paises[1]\">$paises[2]</option>";
+        }
+    ?>
+    </select><br>
     <label for="sexo">Sexo: </label>
     <input type="radio" name="sexo" value="m">Mujer</input>
     <input type="radio" name="sexo" value="h">Hombre</input><br>
@@ -61,9 +82,10 @@
         /*$sql = "INSERT INTO agenda (nombre, apellido, telefono, username, password, nacionalidad, sexo)
         VALUES ('$nombre', '$apellido', '$telefono', '$usuario', '$hash', '$nacionalidad', '$sexo')";*/
 
-        $sql = "INSERT INTO agenda (nombre, apellido, telefono, username, password, nacionalidad, sexo)
+        /* $sql = "INSERT INTO agenda (nombre, apellido, telefono, username, password, nacionalidad, sexo)
         VALUES (:nombre, :apellido, :telefono, :usuario, :contrasena, :nacionalidad, :sexo)";
         /*$sql = "SELECT password FROM agenda WHERE id =:identificador";*/
+        
         $stmt = $conn->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
         $stmt->execute($data);
         $ultimo_id = $conn->lastInsertId();
