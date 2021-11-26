@@ -1,6 +1,7 @@
 <?php
     include('dbconection.php');
-   
+    $id= $_GET["id"];
+    print "<p>ID = $id</p>";
 ?>
 
 <!DOCTYPE html>
@@ -17,8 +18,9 @@
     <?php
         $sql = "SELECT * FROM agenda WHERE id = :identificador";
         $stmt = $conn->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-        $stmt->execute(array('identificador' => 13));
+        $stmt->execute(array('identificador'=>$id));
         $user_view = $stmt->fetchAll();
+
 
         $sqlpaises="SELECT * FROM paises";
         $stmt = $conn->prepare($sqlpaises);
@@ -28,10 +30,10 @@
     ?>
 
     <?php
-        
+
     ?>
 
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"])."?id=$id"; ?>" method="post">
     <label for="nombre">Nombre:</label><input type="text" name="nombre" id="nombre" value="<?=$user_view[0]["nombre"];?>"> <br>
     <label for="apellido">Apellido:</label><input type="text" name="apellido" value="<?= $user_view[0]["apellido"]?>"><br>
     <label for="telefono">Telefono</label><input type="text" name="telefono" value="<?=$user_view[0]["telefono"]?>"><br>
@@ -48,10 +50,10 @@
     <label for="sexo">Sexo: </label>
     <input type="radio" name="sexo" value="m">Mujer</input>
     <input type="radio" name="sexo" value="h">Hombre</input><br>
-    <input type="submit" name="submit" value="Crear Nuevo usuario">
+    <input type="submit" name="submit" value="Editar usuario">
     </form>
 
-    <?php 
+    <?php
     function filtrado($datos) {
         $datos = trim($datos);
         $datos = stripslashes($datos);
@@ -64,8 +66,8 @@
         $apellido = filtrado($_POST["apellido"]);
         $telefono = filtrado($_POST["telefono"]);
         $usuario = filtrado($_POST["usuario"]);
-        $contrasena = filtrado($_POST["contrasena"]);
-        $hash = password_hash($contrasena, PASSWORD_DEFAULT);
+        // $contrasena = filtrado($_POST["contrasena"]);
+        // $hash = password_hash($contrasena, PASSWORD_DEFAULT);
         $nacionalidad = filtrado($_POST["nacionalidad"]);
         $sexo = filtrado($_POST["sexo"]);
 
@@ -74,21 +76,20 @@
             'apellido'=> $apellido,
             'telefono'=> $telefono,
             'usuario'=> $usuario,
-            'contrasena'=> $hash,
             'nacionalidad'=> $nacionalidad,
             'sexo'=> $sexo
         ];
-        
+
         /*$sql = "INSERT INTO agenda (nombre, apellido, telefono, username, password, nacionalidad, sexo)
         VALUES ('$nombre', '$apellido', '$telefono', '$usuario', '$hash', '$nacionalidad', '$sexo')";*/
 
-        $sql = "INSERT INTO agenda (nombre, apellido, telefono, username, password, nacionalidad, sexo)
-        VALUES (:nombre, :apellido, :telefono, :usuario, :contrasena, :nacionalidad, :sexo)";
+        $sql = "INSERT INTO agenda (nombre, apellido, telefono, username,nacionalidad, sexo)
+        VALUES (:nombre, :apellido, :telefono, :usuario, :nacionalidad, :sexo)";
         /*$sql = "SELECT password FROM agenda WHERE id =:identificador";*/
         $stmt = $conn->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
         $stmt->execute($data);
         $ultimo_id = $conn->lastInsertId();
-        
+
         /*$conn->exec($sql);*/
 
         $conn = null;

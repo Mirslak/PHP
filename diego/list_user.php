@@ -46,18 +46,10 @@
                         
                         echo"<td>$data</td>";
                     }
-                    /*<td>1</td>
-                    <td>Africa</td>
-                    <td>Olmedilla</td>
-                    <td>618536254</td>
-                    <td>Mirslak</td>
-                    <td>Española</td>
-                    <td>M</td>
-                    <td>17/02/2021</td>
-                    <td><a href=\"#\">Ver</a> <a href=\"#\">Editar</a> <a href=\"#\">Borrar</a></td>*/
+                    
                 }
                 ?>
-                    <td><a href="?id=<?=$usuario["id"]?>">Ver</a> <a href="?id=<?=$usuario["id"]?>">Editar</a> <a href="?id=<?=$usuario["id"]?>">Borrar</a></td>
+                    <td><a href="ver_user.php?id=<?=$usuario["id"]?>">Ver</a> <a href="editar_user.php?id=<?=$usuario["id"]?>">Editar</a> <a href="borrar_user.php?id=<?=$usuario["id"]?>">Borrar</a></td>
                 <?php
                 echo "</tr>";
         }
