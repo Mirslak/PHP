@@ -1,6 +1,6 @@
 <?php
     if (isset($_POST['uploadBtn']) && $_POST['uploadBtn'] == 'Upload') {
-        ...
+        
     }
 
     if (isset($_FILES['uploadedFile']) && $_FILES['uploadedFile']['error'] === UPLOAD_ERR_OK) {

@@ -7,7 +7,7 @@
     <title>Africa Olmedilla</title>
 </head>
 <body>
-    <form method="POST" action="upload.php" enctype="multipart/form-data">
+    <form method="POST" action="carga.php" enctype="multipart/form-data">
     <div>
         <label for="imagen"> Subir un archivo: </label><br>
         <input type="file" name="uploadedFile"> <br>
