@@ -1,6 +1,6 @@
 <?php
     include('dbconection.php');
-   $id=$_GET["id"];
+   //$id=$_GET["id"];
 ?>
 
 <!DOCTYPE html>
@@ -32,10 +32,11 @@
     ?>
 
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-    <label for="nombre">Nombre:</label><input type="text" name="nombre" id="nombre" value="<?=$user_view[0]["nombre"];?>"> <br>
-    <label for="apellido">Apellido:</label><input type="text" name="apellido" value="<?= $user_view[0]["apellido"]?>"><br>
-    <label for="telefono">Telefono</label><input type="text" name="telefono" value="<?=$user_view[0]["telefono"]?>"><br>
-    <label for="usuario">Usuario:</label><input type="text" name="usuario" value=" <?=$user_view[0]["username"]?>"><br>
+    <label for="nombre">Nombre:</label><input type="text" name="nombre" id="nombre" value=""> <br>
+    <label for="apellido">Apellido:</label><input type="text" name="apellido" value=""><br>
+    <label for="telefono">Telefono</label><input type="text" name="telefono" value=""><br>
+    <label for="usuario">Usuario:</label><input type="text" name="usuario" value=""><br>
+    <label for="contrasena">Contraseña:</label><input type="text" name="contrasena" value=""><br>
     <label for="nacionalidad">Nacionalidad: </label>
     <select name="nacionalidad">
 
@@ -48,6 +49,10 @@
     <label for="sexo">Sexo: </label>
     <input type="radio" name="sexo" value="m">Mujer</input>
     <input type="radio" name="sexo" value="h">Hombre</input><br>
+    <div>
+        <label for="imagen"> Subir un archivo: </label><br>
+        <input type="file" id="foto" name="foto"> <br>
+   </div>
     <input type="submit" name="submit" value="Crear Nuevo usuario">
     </form>
 
@@ -68,6 +73,7 @@
         $hash = password_hash($contrasena, PASSWORD_DEFAULT);
         $nacionalidad = filtrado($_POST["nacionalidad"]);
         $sexo = filtrado($_POST["sexo"]);
+        $foto = filtrado($_POST["foto"]);
 
         $data = [
             'nombre'=> $nombre,
@@ -76,14 +82,15 @@
             'usuario'=> $usuario,
             'contrasena'=> $hash,
             'nacionalidad'=> $nacionalidad,
-            'sexo'=> $sexo
+            'sexo'=> $sexo,
+            'foto'=> $foto
         ];
         
         /*$sql = "INSERT INTO agenda (nombre, apellido, telefono, username, password, nacionalidad, sexo)
         VALUES ('$nombre', '$apellido', '$telefono', '$usuario', '$hash', '$nacionalidad', '$sexo')";*/
 
-        $sql = "INSERT INTO agenda (nombre, apellido, telefono, username, password, nacionalidad, sexo)
-        VALUES (:nombre, :apellido, :telefono, :usuario, :contrasena, :nacionalidad, :sexo)";
+        $sql = "INSERT INTO agenda (nombre, apellido, telefono, username, password, nacionalidad, sexo, foto)
+        VALUES (:nombre, :apellido, :telefono, :usuario, :contrasena, :nacionalidad, :sexo, :foto)";
         /*$sql = "SELECT password FROM agenda WHERE id =:identificador";*/
         $stmt = $conn->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
         $stmt->execute($data);
@@ -97,8 +104,9 @@
 
     if (isset($ultimo_id)) {
     ?>
-
+    
     <h2>Mostrar datos enviados</h2>
+    <img src="images/<?php $user_view[0]['foto']?>">
     <p>ID: <?php print $ultimo_id ?></p>
     <p>Nombre: <?php isset($nombre) ? print $nombre : ""; ?></p>
     <p>Apellidos: <?php isset($apellido) ? print $apellido : ""; ?></p>
@@ -108,10 +116,11 @@
     <p>nacionalidad
 : <?php isset($nacionalidad) ? print $nacionalidad : "Sin contraseña"; ?></p>
     <p>Sexo: <?php isset($sexo) ? print $sexo : ""; ?></p>
+    
 
     <?php }
     else {
-        print "Se ha producido un error. Creación de nuevo usuario abortada";
+       // print "Se ha producido un error. Creación de nuevo usuario abortada";
     }
     ?>
 </body>

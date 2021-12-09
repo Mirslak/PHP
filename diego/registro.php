@@ -39,7 +39,7 @@
     <label for="nacionalidad">Nacionalidad: </label>
     <select name="nacionalidad">
 
-    /**/ */
+    
     <?php
         foreach ($lista_paises as $paises){
             print "<option value=\"$paises[1]\">$paises[2]</option>";

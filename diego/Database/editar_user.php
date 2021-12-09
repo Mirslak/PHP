@@ -50,6 +50,8 @@
     <label for="sexo">Sexo: </label>
     <input type="radio" name="sexo" value="m">Mujer</input>
     <input type="radio" name="sexo" value="h">Hombre</input><br>
+    <form method="POST" action="upload.php" enctype="multipart/form-data">
+
     <input type="submit" name="submit" value="Editar usuario">
     </form>
 
@@ -70,6 +72,7 @@
         // $hash = password_hash($contrasena, PASSWORD_DEFAULT);
         $nacionalidad = filtrado($_POST["nacionalidad"]);
         $sexo = filtrado($_POST["sexo"]);
+        $foto = filtrado($_POST["foto"]);
 
         $data = [
             'nombre'=> $nombre,
@@ -77,14 +80,15 @@
             'telefono'=> $telefono,
             'usuario'=> $usuario,
             'nacionalidad'=> $nacionalidad,
-            'sexo'=> $sexo
+            'sexo'=> $sexo,
+            'foto'=>$foto
         ];
 
         /*$sql = "INSERT INTO agenda (nombre, apellido, telefono, username, password, nacionalidad, sexo)
         VALUES ('$nombre', '$apellido', '$telefono', '$usuario', '$hash', '$nacionalidad', '$sexo')";*/
 
-        $sql = "INSERT INTO agenda (nombre, apellido, telefono, username,nacionalidad, sexo)
-        VALUES (:nombre, :apellido, :telefono, :usuario, :nacionalidad, :sexo)";
+        $sql = "INSERT INTO agenda (nombre, apellido, telefono, username,nacionalidad, sexo, foto)
+        VALUES (:nombre, :apellido, :telefono, :usuario, :nacionalidad, :sexo, :foto)";
         /*$sql = "SELECT password FROM agenda WHERE id =:identificador";*/
         $stmt = $conn->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
         $stmt->execute($data);
@@ -109,7 +113,7 @@
     <p>nacionalidad
 : <?php isset($nacionalidad) ? print $nacionalidad : "Sin contraseña"; ?></p>
     <p>Sexo: <?php isset($sexo) ? print $sexo : ""; ?></p>
-
+    <p><img src="images/$foto"></p>;
     <?php }
     else {
         print "Se ha producido un error. Creación de nuevo usuario abortada";
