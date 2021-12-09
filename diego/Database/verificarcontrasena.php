@@ -1,14 +1,14 @@
 <?php
 include('dbconection.php');
 
-$micontrasena = 'sal123';
+$micontrasena = '123$-a';
 $mihash = password_hash($micontrasena, PASSWORD_DEFAULT);
 
 $sql = "SELECT password FROM agenda WHERE id =:identificador";
 $stmt = $conn->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 
 
-$stmt->execute(array(':identificador' => 8));
+$stmt->execute(array(':identificador' => 35));
 
 $user_view = $stmt->fetchAll();
 
@@ -18,9 +18,9 @@ $mibdhash = $user_view[0]["password"];
 echo "<br>".$mibdhash."<br>";
 
 if(password_verify($micontrasena,$user_view[0]["password"])):
-    print" Acceso autorizado";
+    print "Acceso autorizado";
 else:
-    print " Acceso denegado";
+    print "Acceso denegado";
 endif
 
 

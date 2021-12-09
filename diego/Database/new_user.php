@@ -35,7 +35,7 @@
     <label for="nombre">Nombre:</label><input type="text" name="nombre" id="nombre" value=""> <br>
     <label for="apellido">Apellido:</label><input type="text" name="apellido" value=""><br>
     <label for="telefono">Telefono</label><input type="text" name="telefono" value=""><br>
-    <label for="usuario">Usuario:</label><input type="text" name="usuario" value=""><br>
+    <label for="usuario">Usuario:</label><input type="email" name="usuario" value=""><br>
     <label for="contrasena">Contraseña:</label><input type="text" name="contrasena" value=""><br>
     <label for="nacionalidad">Nacionalidad: </label>
     <select name="nacionalidad">
